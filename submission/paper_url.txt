@@ -1,1 +1,1 @@
-PASTE-YOUR-DEPLOYED-PAPER-URL-HERE
+https://oliwialosko.github.io/ML_Assignment1/work/capstone_report
