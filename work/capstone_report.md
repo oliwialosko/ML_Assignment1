@@ -54,7 +54,7 @@
 
   *Precision@50* was selected as the evaluation metric because it reflects the practical use case in which an editorial team has limited time to review pages with the highest priority. A comparison of the results obtained using different methods is shown in Figure 1. On the test set, the base rate, corresponding to the probability of randomly selecting a declining page, was 0.404. The baseline rule defined in Section 3 achieved a *Precision@50* of 0.540, while the final XGBoost model, after hyperparameter optimization, achieved a score of 0.600.
 
-![A comparison of the results obtained using different methods][fig1_baseline_comparison.png]
+![A comparison of the results obtained using different methods](fig1_baseline_comparison.png)
 *Figure 1. A comparison of the results obtained using different methods.*
 
   The final result was achieved through several iterations of feature engineering and model development. An initial model based on a smaller feature set achieved a *Precision@50* of 0.260. Expanding the feature set increased the score to 0.420, representing a substantial improvement over the initial approach, although the result remained below the domain-informed baseline rule. Hyperparameter optimization using Optuna led to a further improvement, increasing *Precision@50* to 0.600.
@@ -68,14 +68,14 @@
 
   The behavior of the XGBoost model can be interpreted from two perspectives: the relative importance of individual features and the direction in which their values influence the model's predictions. The feature importance presented in Figure 2 shows that *days_since_update* and *ctr_past* contributed the highest gain to the model. This indicates that these features were particularly useful when constructing the decision trees. However, this analysis alone does not show how higher or lower values of a given variable affect the predicted risk. This relationship can be examined using the SHAP summary plot presented in Figure 3.
 
-![Feature Importance PLot][fig2_feature_importance.png]
+![Feature Importance PLot](fig2_feature_importance.png)
 *Figure 2. Feature Importance Plot.*
 
   The SHAP results show that the relationship between some features and the predicted probability of decline is not straightforward or linear. For example, the effect of *content_age* varies considerably across observations. Pages with very low content age tend to be associated with lower predicted risk of short-term decline, while high content age also appears to be associated with relatively low risk, as indicated by negative SHAP values. One possible explanation is that older content may have already been updated or may represent evergreen material that remains relevant over time, meaning that content age alone does not necessarily indicate a risk to its search visibility.
   
   Similarly, higher values of *word_count* generally shift the model's predictions towards a lower probability of decline, suggesting that more comprehensive content may be associated with greater short-term stability. Categorical variables such as *competition* and *main_intent* are shown in grey in the SHAP visualization because their values do not correspond to the continuous numerical scale used for color encoding.
 
-![SHAP][fig3_shap_summary.png]
+![SHAP](fig3_shap_summary.png)
 *Figure 3. SHAP Summary Plot.*
 
   Several of the observed relationships can also be considered in the context of search performance. Higher values of *imp_past* generally increase the predicted probability of decline. One possible explanation is that pages with high historical visibility have more traffic to lose, making a substantial percentage decline more likely to occur than for pages with very low initial traffic. Similarly, higher values of *avg_pos_past*, corresponding to worse average positions in search results, are generally associated with an increased risk of future decline.
